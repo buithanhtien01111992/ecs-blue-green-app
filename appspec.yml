@@ -3,9 +3,9 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:ap-southeast-1:ACCOUNT-NUMBER:task-definition/d-ecr-blue-green-app:1"
+        TaskDefinition: "arn:aws:ecs:ap-southeast-1:ACCOUNT-NUMBER:task-definition/d-app:1"
         LoadBalancerInfo:
-            ContainerName: "d-ecr-blue-green-app"
+            ContainerName: "d-app"
             ContainerPort: 80
         PlatformVersion: "LATEST"
 

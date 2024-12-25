@@ -13,19 +13,19 @@ phases:
 
   build:
     commands:
-    - echo "Building Docker image"
-    - docker build -t $ECR_REPOSITORY_URI:latest .
-    - echo "Tagging Docker image with commit ID"
-    - docker tag $ECR_REPOSITORY_URI:latest $ECR_REPOSITORY_URI:$IMAGE_TAG
+      - echo "Building Docker image"
+      - docker build -t $ECR_REPOSITORY_URI:latest .
+      - echo "Tagging Docker image with commit ID"
+      - docker tag $ECR_REPOSITORY_URI:latest $ECR_REPOSITORY_URI:$IMAGE_TAG
 
   post_build:
     commands:
       - echo "Pushing Docker images"
       - docker push ${ECR_REPOSITORY_URI}:latest
       - docker push ${ECR_REPOSITORY_URI}:$IMAGE_TAG
-      - printf '{"Version":"1.0","ImageURI":"%s"}' "${ECR_REPOSITORY_URI}:${IMAGE_TAG}" > imageDetail.json
+      - printf '[{"name":"d-app","imageUri":"%s"}]' "${ECR_REPOSITORY_URI}:${IMAGE_TAG}" > imagedefinitions.json
 
 artifacts:
-    files:
-      - imageDetail.json
-      - appspec.yml
+  files:
+    - imagedefinitions.json
+    - appspec.yml
